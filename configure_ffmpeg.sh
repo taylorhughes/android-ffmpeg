@@ -61,6 +61,7 @@ $DEBUG_FLAG \
 --enable-decoder=mp3 \
 --enable-decoder=vorbis \
 --enable-decoder=alac \
+--enable-encoder=mpeg4 \
 --enable-decoder=mpeg4 \
 --enable-decoder=vp8 \
 --enable-decoder=flac \
@@ -68,6 +69,8 @@ $DEBUG_FLAG \
 --enable-decoder=pcm_u8 \
 --enable-decoder=h264 \
 --enable-decoder=h263 \
+--enable-encoder=libx264 \
+--enable-decoder=libx264 \
 --enable-encoder=adpcm_swf \
 --enable-decoder=adpcm_swf \
 --enable-encoder=nellymoser \
@@ -112,6 +115,7 @@ $DEBUG_FLAG \
 --enable-demuxer=mpegtsraw \
 --enable-muxer=aac \
 --enable-demuxer=aac \
+--enable-muxer=mp4 \
 --enable-parser=aac \
 --enable-parser=h263 \
 --enable-parser=h264 \
