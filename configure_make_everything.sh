@@ -5,11 +5,27 @@ function die {
 }
 
 ./clean.sh
-./configure_x264.sh || die "X264 configure"
-./make_x264.sh || die "X264 make"
-./configure_freetype2.sh || die "freetype2 configure"
-./make_freetype2.sh || die "freetype2 make"
-./configure_ffmpeg.sh || die "FFMPEG configure"
-./make_ffmpeg.sh || die "FFMPEG make"
-./configure_sox.sh || die "SoX configure"
-./make_sox.sh || die "SoX make"
+
+
+
+for i in x264 ffmpeg; do
+
+  echo
+  echo
+  echo
+  echo "$i CONFIGURE"
+  echo
+  echo
+  echo
+  ./configure_${i}.sh || die "$i configure died"
+
+  echo
+  echo
+  echo
+  echo "$i MAKE"
+  echo
+  echo
+  echo
+  ./make_${i}.sh || die "$i make died"
+
+done

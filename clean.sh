@@ -4,19 +4,10 @@ pushd `dirname $0`
 
 find . -name \*.o -delete
 
-pushd x264
-make clean
+for i in x264 ffmpeg; do
 
-popd
-pushd freetype2
-make clean
+  pushd $i
+  make clean
+  popd
 
-popd
-pushd ffmpeg
-make clean
-
-popd
-pushd sox
-make clean
-
-popd
+done

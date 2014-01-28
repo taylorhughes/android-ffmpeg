@@ -7,18 +7,7 @@ if [[ $DEBUG == 1 ]]; then
   DEBUG_FLAG="--disable-stripping"
 fi
 
-# I haven't found a reliable way to install/uninstall a patch from a Makefile,
-# so just always try to apply it, and ignore it if it fails. Works fine unless
-# the files being patched have changed, in which cause a partial application
-# could happen unnoticed.
-patch -N -p1 --reject-file=- < redact-plugins.patch
-patch -N -p1 --reject-file=- < arm-asm-fix.patch
-patch -d ffmpeg -N -p1 --reject-file=- < \
-    ARM_generate_position_independent_code_to_access_data_symbols.patch
-patch -d ffmpeg -N -p1 --reject-file=- < \
-    ARM_intmath_use_native-size_return_types_for_clipping_functions.patch
-patch -d ffmpeg -N -p1 --reject-file=- < \
-    enable-fake-pkg-config.patch
+patch -N -d ffmpeg -p1 --reject-file=- < ./ffmpeg-configure.patch
 
 pushd ffmpeg
 
@@ -43,18 +32,7 @@ $DEBUG_FLAG \
 --disable-doc \
 --enable-yasm \
 \
---enable-decoders \
---enable-encoders \
---enable-muxers \
---enable-demuxers \
---enable-parsers \
---enable-protocols \
---enable-filters \
---enable-avresample \
---enable-libfreetype \
-\
 --disable-indevs \
---enable-indev=lavfi \
 --disable-outdevs \
 \
 --enable-hwaccels \
@@ -67,7 +45,93 @@ $DEBUG_FLAG \
 \
 --enable-libx264 \
 --enable-zlib \
---enable-muxer=md5
+\
+--disable-filters \
+--enable-filter=transpose \
+--enable-filter=hflip \
+--enable-filter=vflip \
+\
+--disable-encoders \
+--disable-decoders \
+--disable-protocols \
+--disable-muxers \
+--disable-demuxers \
+--disable-parsers \
+--disable-devices \
+--enable-decoder=mp3 \
+--enable-decoder=vorbis \
+--enable-decoder=alac \
+--enable-decoder=mpeg4 \
+--enable-decoder=vp8 \
+--enable-decoder=flac \
+--enable-decoder=pcm_s8 \
+--enable-decoder=pcm_u8 \
+--enable-decoder=h264 \
+--enable-decoder=h263 \
+--enable-encoder=adpcm_swf \
+--enable-decoder=adpcm_swf \
+--enable-encoder=nellymoser \
+--enable-decoder=nellymoser \
+--enable-encoder=flv \
+--enable-decoder=flv \
+--enable-encoder=aac \
+--enable-decoder=aac \
+--enable-decoder=amrnb \
+--enable-decoder=amrwb \
+--enable-encoder=pcm_s16le \
+--enable-decoder=pcm_s16le \
+--enable-muxer=amr \
+--enable-demuxer=amr \
+--enable-muxer=flv \
+--enable-demuxer=flv \
+--enable-muxer=pcm_s16le \
+--enable-demuxer=pcm_s16le \
+--enable-muxer=wav \
+--enable-demuxer=wav \
+--enable-muxer=matroska \
+--enable-demuxer=matroska \
+--enable-muxer=matroska_audio \
+--enable-demuxer=matroska_audio \
+--enable-muxer=m4v \
+--enable-demuxer=m4v \
+--enable-muxer=mov \
+--enable-demuxer=mov \
+--enable-muxer=h263 \
+--enable-demuxer=h263 \
+--enable-muxer=h264 \
+--enable-demuxer=h264 \
+--enable-muxer=webm \
+--enable-demuxer=webm \
+--enable-muxer=ogg \
+--enable-demuxer=ogg \
+--enable-muxer=flac \
+--enable-demuxer=flac \
+--enable-muxer=mpegts \
+--enable-demuxer=mpegts \
+--enable-muxer=mpegtsraw \
+--enable-demuxer=mpegtsraw \
+--enable-muxer=aac \
+--enable-demuxer=aac \
+--enable-parser=aac \
+--enable-parser=h263 \
+--enable-parser=h264 \
+--enable-parser=vp8 \
+--enable-parser=mpegvideo \
+--enable-parser=mpegaudio \
+--enable-parser=mpeg4video \
+--enable-parser=flac \
+--enable-protocol=rtmps \
+--enable-protocol=rtmpt \
+--enable-protocol=crypto \
+--enable-protocol=rtmpte \
+--enable-protocol=file \
+--enable-protocol=pipe \
+--enable-protocol=rtp \
+--enable-protocol=rtmp \
+--enable-protocol=tcp \
+--enable-protocol=http \
+--enable-protocol=rtmpe \
+--enable-protocol=udp
 
 popd; popd
 
