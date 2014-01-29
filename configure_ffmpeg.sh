@@ -50,6 +50,9 @@ $DEBUG_FLAG \
 --enable-filter=transpose \
 --enable-filter=hflip \
 --enable-filter=vflip \
+--enable-filter=scale \
+--enable-filter=crop \
+--enable-filter=cropdetect \
 \
 --disable-encoders \
 --disable-decoders \
