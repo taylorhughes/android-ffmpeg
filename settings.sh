@@ -35,22 +35,14 @@ CC="$NDK_TOOLCHAIN_BASE/bin/$HOST-gcc --sysroot=$NDK_SYSROOT"
 LD=$NDK_TOOLCHAIN_BASE/bin/$HOST-ld
 STRIP=$NDK_TOOLCHAIN_BASE/bin/$HOST-strip
 
-# i use only a small number of formats - set this to 0 if you want everything.
-# changed 0 to the default, so it'll compile shitloads of codecs normally
-if [[ "x$minimal_featureset" == "x" ]]; then
-minimal_featureset=1
-fi
-
-function current_dir {
-  echo "$(cd "$(dirname $0)"; pwd)"
-}
-
 CWD=`pwd`
 PROJECT_ROOT=$CWD
 EXTERNAL_ROOT=$PROJECT_ROOT
 
 # install root for built files
 DESTDIR=$EXTERNAL_ROOT
-prefix=/data/data/info.guardianproject.ffmpeg/app_opt
+prefix=/build/
 LOCAL=$DESTDIR$prefix
 
+CFLAGS="-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -fno-strict-overflow -fstack-protector-all -fPIC -fpic"
+LDFLAGS="-Wl,-z,relro -Wl,-z,now -pie"

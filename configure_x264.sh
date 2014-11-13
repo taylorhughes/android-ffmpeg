@@ -9,6 +9,8 @@ pushd x264
 --host=arm-linux \
 --enable-pic \
 --enable-static \
---disable-cli
+--disable-cli \
+--extra-cflags="$CFLAGS" \
+--extra-ldflags="$LDFLAGS"
 
 popd;popd
